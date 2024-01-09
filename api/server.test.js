@@ -33,6 +33,40 @@ describe('[POST] /api/auth/register', () => {
 
     expect(response.body.username).toEqual('dolly')
   })
+  it('responds with 400 and correct message if username is missing', async () => {
+    const newUser = { password: 'testing123' } 
+
+    const response = await request(server)
+      .post('/api/auth/register')
+      .send(newUser)
+  
+    expect(response.status).toEqual(400)
+    expect(response.body).toEqual({ message: 'username and password required' })
+  })
+  it('responds with 400 and correct message if password is missing', async () => {
+    const newUser = { username: 'ricky' } 
+
+    const response = await request(server)
+      .post('/api/auth/register')
+      .send(newUser)
+  
+    expect(response.status).toEqual(400)
+    expect(response.body).toEqual({ message: 'username and password required' })
+  })
+  it('responds with 400 & correct message if username already taken', async () => {
+    const existingUser = { username: 'repeatUser', password: 'nothingNew' }
+
+    await request(server)
+      .post('/api/auth/register')
+      .send(existingUser)
+
+    const response = await request(server)
+      .post('/api/auth/register')
+      .send(existingUser)
+
+    expect(response.status).toEqual(400)
+    expect(response.body).toEqual({ message: 'username taken' })
+  })
 })
 
 
