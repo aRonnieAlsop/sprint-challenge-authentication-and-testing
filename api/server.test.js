@@ -69,4 +69,22 @@ describe('[POST] /api/auth/register', () => {
   })
 })
 
+describe('[POST] /api/auth/login', () => {
+  it('responds with 200 and correct message/token on proper login', async () => {
+    const existingUser = { username: 'iWillBeBack', password: 'imBack' }
+
+    await request(server) 
+      .post('/api/auth/register')
+      .send(existingUser)
+
+    const response = await request(server)
+      .post('/api/auth/login')
+      .send(existingUser)
+
+    expect(response.status).toEqual(200)
+    expect(response.body).toHaveProperty('message', 'welcome, iWillBeBack')
+    expect(response.body).toHaveProperty('token')
+  })
+})
+
 
