@@ -3,6 +3,7 @@ const server = require('./server.js')
 const db = require('../data/dbConfig.js')
 
 beforeAll(async () => {
+  
   await db.migrate.rollback()
   await db.migrate.latest()
 })
