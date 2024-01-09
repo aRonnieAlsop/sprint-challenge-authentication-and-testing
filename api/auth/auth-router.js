@@ -31,6 +31,10 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
   res.end('implement login, please!');
+
+});
+
+module.exports = router;
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -54,6 +58,3 @@ router.post('/login', (req, res) => {
     4- On FAILED login due to `username` not existing in the db, or `password` being incorrect,
       the response body should include a string exactly as follows: "invalid credentials".
   */
-});
-
-module.exports = router;
